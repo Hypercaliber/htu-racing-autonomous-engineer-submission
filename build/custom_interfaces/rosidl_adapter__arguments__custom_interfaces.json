@@ -1,0 +1,7 @@
+{
+  "package_name": "custom_interfaces",
+  "non_idl_tuples": [
+    "/home/hypercaliber/projects/htu_racing_recruitment_task2/htu-racing-autonomous-engineer-task/ros_ws/src/custom_interfaces:msg/BoundingBox.msg",
+    "/home/hypercaliber/projects/htu_racing_recruitment_task2/htu-racing-autonomous-engineer-task/ros_ws/src/custom_interfaces:msg/BoundingBoxArray.msg"
+  ]
+}

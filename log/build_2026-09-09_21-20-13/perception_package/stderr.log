@@ -1,0 +1,2 @@
+/home/hypercaliber/projects/htu_racing_recruitment_task2/htu-racing-autonomous-engineer-task/install/perception_package/lib/python3.12/site-packages/perception_package/visualization_node.py:116: SyntaxWarning: 'str' object is not callable; perhaps you missed a comma?
+  f'Acceleration: {accel.x:.2f}'

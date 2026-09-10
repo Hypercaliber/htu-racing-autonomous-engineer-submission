@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "custom_interfaces__rs",
+		"source" : "/home/hypercaliber/projects/htu_racing_recruitment_task2/htu-racing-autonomous-engineer-task/build/custom_interfaces/custom_interfaces__rs"
+	}
+}

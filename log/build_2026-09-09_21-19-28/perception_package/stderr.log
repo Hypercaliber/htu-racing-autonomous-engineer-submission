@@ -1,0 +1,5 @@
+  File "/home/hypercaliber/projects/htu_racing_recruitment_task2/htu-racing-autonomous-engineer-task/install/perception_package/lib/python3.12/site-packages/perception_package/visualization_node.py", line 28
+    self.bridge() = CvBridge
+    ^^^^^^^^^^^^^
+SyntaxError: cannot assign to function call here. Maybe you meant '==' instead of '='?
+

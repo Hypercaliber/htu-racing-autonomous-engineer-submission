@@ -1,0 +1,36 @@
+running egg_info
+writing ../../../build/perception_package/perception_package.egg-info/PKG-INFO
+writing dependency_links to ../../../build/perception_package/perception_package.egg-info/dependency_links.txt
+writing entry points to ../../../build/perception_package/perception_package.egg-info/entry_points.txt
+writing requirements to ../../../build/perception_package/perception_package.egg-info/requires.txt
+writing top-level names to ../../../build/perception_package/perception_package.egg-info/top_level.txt
+reading manifest file '../../../build/perception_package/perception_package.egg-info/SOURCES.txt'
+writing manifest file '../../../build/perception_package/perception_package.egg-info/SOURCES.txt'
+running build
+running build_py
+copying perception_package/camera_node.py -> /home/hypercaliber/projects/htu_racing_recruitment_task2/htu-racing-autonomous-engineer-task/build/perception_package/build/lib/perception_package
+copying perception_package/__init__.py -> /home/hypercaliber/projects/htu_racing_recruitment_task2/htu-racing-autonomous-engineer-task/build/perception_package/build/lib/perception_package
+copying perception_package/lidar_node.py -> /home/hypercaliber/projects/htu_racing_recruitment_task2/htu-racing-autonomous-engineer-task/build/perception_package/build/lib/perception_package
+copying perception_package/visualization_node.py -> /home/hypercaliber/projects/htu_racing_recruitment_task2/htu-racing-autonomous-engineer-task/build/perception_package/build/lib/perception_package
+copying core/__init__.py -> /home/hypercaliber/projects/htu_racing_recruitment_task2/htu-racing-autonomous-engineer-task/build/perception_package/build/lib/core
+running install
+running install_lib
+copying /home/hypercaliber/projects/htu_racing_recruitment_task2/htu-racing-autonomous-engineer-task/build/perception_package/build/lib/perception_package/camera_node.py -> /home/hypercaliber/projects/htu_racing_recruitment_task2/htu-racing-autonomous-engineer-task/install/perception_package/lib/python3.12/site-packages/perception_package
+copying /home/hypercaliber/projects/htu_racing_recruitment_task2/htu-racing-autonomous-engineer-task/build/perception_package/build/lib/perception_package/__init__.py -> /home/hypercaliber/projects/htu_racing_recruitment_task2/htu-racing-autonomous-engineer-task/install/perception_package/lib/python3.12/site-packages/perception_package
+copying /home/hypercaliber/projects/htu_racing_recruitment_task2/htu-racing-autonomous-engineer-task/build/perception_package/build/lib/perception_package/lidar_node.py -> /home/hypercaliber/projects/htu_racing_recruitment_task2/htu-racing-autonomous-engineer-task/install/perception_package/lib/python3.12/site-packages/perception_package
+copying /home/hypercaliber/projects/htu_racing_recruitment_task2/htu-racing-autonomous-engineer-task/build/perception_package/build/lib/perception_package/visualization_node.py -> /home/hypercaliber/projects/htu_racing_recruitment_task2/htu-racing-autonomous-engineer-task/install/perception_package/lib/python3.12/site-packages/perception_package
+copying /home/hypercaliber/projects/htu_racing_recruitment_task2/htu-racing-autonomous-engineer-task/build/perception_package/build/lib/core/__init__.py -> /home/hypercaliber/projects/htu_racing_recruitment_task2/htu-racing-autonomous-engineer-task/install/perception_package/lib/python3.12/site-packages/core
+byte-compiling /home/hypercaliber/projects/htu_racing_recruitment_task2/htu-racing-autonomous-engineer-task/install/perception_package/lib/python3.12/site-packages/perception_package/lidar_node.py to lidar_node.cpython-312.pyc
+byte-compiling /home/hypercaliber/projects/htu_racing_recruitment_task2/htu-racing-autonomous-engineer-task/install/perception_package/lib/python3.12/site-packages/perception_package/visualization_node.py to visualization_node.cpython-312.pyc
+running install_data
+copying resource/perception_package -> /home/hypercaliber/projects/htu_racing_recruitment_task2/htu-racing-autonomous-engineer-task/install/perception_package/share/ament_index/resource_index/packages
+copying package.xml -> /home/hypercaliber/projects/htu_racing_recruitment_task2/htu-racing-autonomous-engineer-task/install/perception_package/share/perception_package
+copying models/yolov26.pt -> /home/hypercaliber/projects/htu_racing_recruitment_task2/htu-racing-autonomous-engineer-task/install/perception_package/share/perception_package/models
+running install_egg_info
+removing '/home/hypercaliber/projects/htu_racing_recruitment_task2/htu-racing-autonomous-engineer-task/install/perception_package/lib/python3.12/site-packages/perception_package-0.0.0-py3.12.egg-info' (and everything under it)
+Copying ../../../build/perception_package/perception_package.egg-info to /home/hypercaliber/projects/htu_racing_recruitment_task2/htu-racing-autonomous-engineer-task/install/perception_package/lib/python3.12/site-packages/perception_package-0.0.0-py3.12.egg-info
+running install_scripts
+Installing camera_node script to /home/hypercaliber/projects/htu_racing_recruitment_task2/htu-racing-autonomous-engineer-task/install/perception_package/lib/perception_package
+Installing lidar_node script to /home/hypercaliber/projects/htu_racing_recruitment_task2/htu-racing-autonomous-engineer-task/install/perception_package/lib/perception_package
+Installing visualization_node script to /home/hypercaliber/projects/htu_racing_recruitment_task2/htu-racing-autonomous-engineer-task/install/perception_package/lib/perception_package
+writing list of installed files to '/home/hypercaliber/projects/htu_racing_recruitment_task2/htu-racing-autonomous-engineer-task/build/perception_package/install.log'
