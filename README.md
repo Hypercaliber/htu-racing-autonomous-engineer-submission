@@ -1,178 +1,86 @@
-# HTU Racing — Autonomous Recruitment Task
+# HTU Racing — Autonomous Recruitment Task (Task 2)
 
-## Environment
-This task must be completed using **ROS 2 Jazzy**. Other ROS 2 distributions are not supported for this recruitment task.
+ROS 2 Jazzy perception system built for the HTU Racing Autonomous Engineer recruitment task. It processes a recorded Formula Student sensor run (camera, LiDAR, IMU, odometry) and produces cone detection, a four-stage LiDAR pipeline, and a combined debug visualization.
 
-* Ubuntu
-* ROS 2 Jazzy
-* Python 3
+Full write-up (algorithms, design decisions, parameters, limitations) is in `Task2_Documentation.docx`. This README just covers what's here and how to run it.
 
-## Dependencies and Virtual Environment
+## What's included
 
-From the project root, first source ROS 2:
+- `ros_ws/src/perception_package/` — the three developed nodes:
+  - `camera_node.py` — runs a pretrained YOLO model on the camera stream, publishes detections.
+  - `lidar_node.py` — transforms LiDAR data into the vehicle frame, then crops (ROI), removes the ground, and clusters the remaining points into cones.
+  - `visualization_node.py` — combines the camera feed, detections, odometry, and IMU into one annotated debug image.
+- `ros_ws/src/custom_interfaces/` — custom message definitions (`BoundingBox`, `BoundingBoxArray`) used to publish detection results.
+- `ros_ws/src/perception_package/launch/perception.launch.py` — starts all three nodes together.
+- `recruitment_data/` — the provided ROS 2 bag, QoS override config, and reference demo video (bag/video excluded from git, see `.gitignore` — download separately if needed).
+- `tools/visualize.sh` — launches RViz2 and rqt_image_view pre-configured for this system's topics.
+
+## Requirements
+
+- Ubuntu 24.04 (Noble)
+- ROS 2 Jazzy
+- Python 3.12, with a virtual environment (`--system-site-packages`) for pip dependencies
+
+## Setup
 
 ```bash
 source /opt/ros/jazzy/setup.bash
-```
 
-Install the required system and ROS 2 packages:
-
-```bash
 sudo apt update
+grep -vE '^\s*(#|$)' apt-packages.txt | xargs sudo apt install -y
 
-grep -vE '^\s*(#|$)' apt-packages.txt | \
-  xargs sudo apt install -y
-```
-
-Create a Python virtual environment:
-
-```bash
 python3 -m venv --system-site-packages .venv
-```
-
-Activate it:
-
-```bash
 source .venv/bin/activate
-```
-
-Install the required Python dependencies:
-
-```bash
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 ```
 
-The virtual environment should remain active while building and running the developed ROS 2 nodes.
+Download the bag from the provided Drive link and extract it into `recruitment_data/recorded_run/` if it isn't already there.
 
-In each new terminal used for development:
+## Build
 
 ```bash
-source /opt/ros/jazzy/setup.bash
-source .venv/bin/activate
+cd ros_ws
+python3 -m colcon build
+source install/setup.bash
 ```
 
-Candidates may add any additional dependencies required by their implementation. Any added dependencies should also be included in the appropriate dependency file.
+**Important:** always run `python3 -m colcon build` (not plain `colcon build`) with the virtual environment active. Otherwise the generated node executables link against the system Python instead of the venv, and fail to import `ultralytics`/`scikit-learn` at runtime.
 
-## Recruitment Data
+## Running the system
 
-Download the ROS bag from:
+Three terminals, each needs `source /opt/ros/jazzy/setup.bash` (and the venv + `ros_ws/install/setup.bash` for the launch terminal):
 
-https://drive.google.com/drive/folders/1Dh07Cv7jPLzBMK9UeLEoxpcmaaPBuZC-?usp=drive_link
-
-Extract it into:
-
-```text
-recruitment_data/
-```
-
-The bag contains:
-
-```text
-/zed/left/image_rect_color
-/velodyne_points
-/imu/data
-/ground_truth/odom
-/clock
-```
-
-## Run the Bag
-
-From the project root:
-
+**Terminal 1 — play the recording**
 ```bash
 cd recruitment_data
-
-ros2 bag play recorded_run \
-  --qos-profile-overrides-path qos_override.yaml
+ros2 bag play recorded_run --qos-profile-overrides-path qos_override.yaml --loop
 ```
 
-Always use the provided `qos_override.yaml`.
-
-## Visualization Tools
-
-A visualization setup is provided inside:
-
-```text
-tools/
-├── visualize.sh
-└── recruitment.rviz
+**Terminal 2 — run the perception system**
+```bash
+source .venv/bin/activate
+source ros_ws/install/setup.bash
+ros2 launch perception_package perception.launch.py
 ```
 
-Run it from the project root using:
-
+**Terminal 3 — visualize**
 ```bash
 ./tools/visualize.sh base_footprint
 ```
 
-If the script is not executable:
+In RViz, check the ROI / Non-Ground / Clustered Points displays to see each LiDAR stage, and set Clustered Points' Color Transformer to **Intensity** to see individual cones in distinct colors. In rqt_image_view, select `/perception/debug_image` for the annotated camera output.
 
-```bash
-chmod +x tools/visualize.sh
-```
+## Topics published
 
-The script launches:
+| Node | Publishes | Type |
+|---|---|---|
+| camera_node | `/perception/yolo_bboxes` | `custom_interfaces/BoundingBoxArray` |
+| lidar_node | `/perception/roi_points` | `sensor_msgs/PointCloud2` |
+| lidar_node | `/perception/non_ground_points` | `sensor_msgs/PointCloud2` |
+| lidar_node | `/perception/clustered_points` | `sensor_msgs/PointCloud2` |
+| visualization_node | `/perception/debug_image` | `sensor_msgs/Image` |
 
-* **RViz2** for LiDAR visualization.
-* **rqt_image_view** for camera/debug-image visualization.
+## Known limitations
 
-The RViz configuration expects the following topics:
-
-```text
-/velodyne_points
-/perception/non_ground_points
-/perception/roi_points
-/perception/clustered_points
-```
-
-In `rqt_image_view`, select:
-
-```text
-/perception/debug_image
-```
-
-## Troubleshooting
-
-If ROS 2 processes fail to discover each other, install and use Cyclone DDS:
-
-```bash
-sudo apt install ros-jazzy-rmw-cyclonedds-cpp
-
-export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-```
-
-Make sure all terminals use the same middleware implementation.
-
-If Cyclone DDS resolves the issue, make the setting persistent:
-
-
-```bash
-echo 'export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp' >> ~/.bashrc
-```
-
-Then reload the shell configuration:
-```bash
-source ~/.bashrc
-```
-
-or open a new terminal.
-
-If ROS 2 CLI discovery is still stale, restart the daemon:
-
-```bash
-ros2 daemon stop
-ros2 daemon start
-```
-
-If `rqt_image_view` is unavailable:
-
-```bash
-sudo apt install ros-jazzy-rqt-image-view
-```
-
-## Notes
-
-* Do not modify the provided ROS bag.
-* Always use the provided QoS configuration when replaying the bag.
-* The simulator is not required.
-* Candidates are expected to independently learn the ROS 2 concepts and tools required to complete the task.
+Ground removal uses a fixed height threshold tuned visually for this specific flat track (wouldn't generalize to sloped terrain), and the LiDAR/DBSCAN/synchronizer parameters were tuned by eye against this one recording rather than validated analytically. See `Task2_Documentation.docx`, Section 7, for the complete list.
