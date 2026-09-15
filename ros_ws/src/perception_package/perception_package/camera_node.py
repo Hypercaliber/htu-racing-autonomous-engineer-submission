@@ -45,7 +45,6 @@ class CameraNode(Node):
             10)
 
     def image_callback(self, msg):
-
         # Covert the images into something that YOLO can use
         cv_image = self.bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
 
@@ -58,6 +57,7 @@ class CameraNode(Node):
 
         for box in results[0].boxes:
             bbox = BoundingBox()
+            # Cast class ID directly as integer for int8 ROS field
             bbox.class_id = int(box.cls[0])
             bbox.confidence = float(box.conf[0])
             x1, y1, x2, y2 = box.xyxy[0]

@@ -37,10 +37,16 @@ class VisualizationNode(Node):
         # presistent last instance of odometery and IMU data
         self.latest_odom = None
         self.latest_imu = None
+  
+        # Maps class_id (int8) -> (BGR Color Tuple, Display Name)
+        self.class_info = {
+            0: ((255, 0, 0), 'blue_cone'),       # Blue
+            1: ((0, 255, 255), 'yellow_cone'),   # Yellow
+            2: ((0, 165, 255), 'orange_cone'),   # Orange
+            3: ((0, 165, 255), 'large_orange')   # Orange
+        }
+        self.default_info = ((0, 165, 255), 'unknown_cone')
 
-        # matching class names to color
-        self.class_names = {0: 'blue_cone', 1: 'yellow_cone', 2: 'orange_cone', 3: 'orange_cone'}  
- 
         self.odom_sub = self.create_subscription(
             Odometry,
             '/ground_truth/odom',
@@ -81,16 +87,17 @@ class VisualizationNode(Node):
 
         # for each loop to draw boxes
         for box in bbox_msg.boxes:
+            # Resolve BGR color tuple and display label name using box.class_id
+            color, class_name = self.class_info.get(box.class_id, self.default_info)
+            label = f'{class_name}: {box.confidence:.2f}'
+
             cv2.rectangle(
                 cv_image,
                 (int (box.x1), int(box.y1)),
                 (int (box.x2), int(box.y2)),
-                (0, 255, 0), #green 
+                color,
                 2
-            )
-
-            class_name = self.class_names.get(box.class_id, f'UNMAPPED_{box.class_id}')
-            label = f'{class_name}: {box.confidence:.2f}'
+            )    
 
             # Puts the label above the boxes
             cv2.putText(
@@ -99,7 +106,7 @@ class VisualizationNode(Node):
                 (int(box.x1), int(box.y1) - 10),
                 cv2.FONT_HERSHEY_COMPLEX,
                 0.5,
-                (0, 255, 0),
+                color,
                 2
             )
 
