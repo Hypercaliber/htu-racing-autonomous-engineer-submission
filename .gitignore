@@ -10,7 +10,5 @@ ros_ws/install/.venv/
 ros_ws/build/
 ros_ws/install/
 ros_ws/log/
-recruitment_data/recorded_run/
-recruitment_data/perception_system_demo.mp4
 __pycache__/
 *.pyc
