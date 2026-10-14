@@ -9,6 +9,7 @@ setup.py
 ../../../build/perception_package/perception_package.egg-info/top_level.txt
 ../../../build/perception_package/perception_package.egg-info/zip-safe
 core/__init__.py
+launch/perception_package_launch.py
 models/yolov26.pt
 perception_package/__init__.py
 perception_package/camera_node.py

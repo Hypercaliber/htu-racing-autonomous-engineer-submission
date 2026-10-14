@@ -24,7 +24,6 @@ function _colcon_prefix_chain_powershell_source_script {
 
 # source chained prefixes
 _colcon_prefix_chain_powershell_source_script "/opt/ros/jazzy/local_setup.ps1"
-_colcon_prefix_chain_powershell_source_script "/home/hypercaliber/projects/htu_racing_recruitment_task2/htu-racing-autonomous-engineer-task/ros_ws/install/local_setup.ps1"
 
 # source this prefix
 $env:COLCON_CURRENT_PREFIX=(Split-Path $PSCommandPath -Parent)

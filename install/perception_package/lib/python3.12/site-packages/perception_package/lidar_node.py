@@ -100,7 +100,7 @@ class LidarNode(Node):
 
         # clustering the points together
         xyz = np.stack([non_ground_points['x'], non_ground_points['y'], non_ground_points['z']], axis = 1)
-        clustering = DBSCAN(eps = 0.5, min_samples = 4).fit(xyz)
+        clustering = DBSCAN(eps = 0.5, min_samples = 1).fit(xyz)
         labels = clustering.labels_
 
         # discarding any points that don't map to a cluster (labels assigns them the value -1)
