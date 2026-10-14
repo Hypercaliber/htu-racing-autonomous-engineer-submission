@@ -1,5 +1,3 @@
-recruitment_data/
-
 .venv/
 .vscode/
 __pycache__/
@@ -12,3 +10,4 @@ ros_ws/install/
 ros_ws/log/
 __pycache__/
 *.pyc
+recruitment_data/recorded_run/*.db3

@@ -1,0 +1,17 @@
+/zed/left/image_rect_color:
+  history: keep_last
+  depth: 10
+  reliability: reliable
+  durability: volatile
+
+/velodyne_points:
+  reliability: reliable
+  durability: volatile
+  history: keep_last
+  depth: 10
+
+/imu/data:
+  reliability: reliable
+  durability: volatile
+  history: keep_last
+  depth: 10
