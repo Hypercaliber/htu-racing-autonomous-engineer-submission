@@ -14,7 +14,10 @@ Full write-up (algorithms, design decisions, parameters, limitations) is in `Tas
 - `ros_ws/src/perception_package/launch/perception.launch.py` — starts all three nodes together.
 - `recruitment_data/` — the provided ROS 2 bag, QoS override config, and reference demo video (bag/video excluded from git, see `.gitignore` — download separately if needed).
 - `tools/visualize.sh` — launches RViz2 and rqt_image_view pre-configured for this system's topics.
-
+- `recruitment_data/recorded_run/recorded_run_0.db3` is too large to include inside of the repo, it will be provided in this link: 
+https://drive.google.com/drive/folders/1NpPVHW_kUiBIHy2ukb5eCYurYTxiEyrp?usp=sharing
+Also here is the Youtube video that has a working video demo:
+https://youtu.be/rhkTYR_Uud0?si=cAmxRDqcULVeyixm
 ## Requirements
 
 - Ubuntu 24.04 (Noble)
